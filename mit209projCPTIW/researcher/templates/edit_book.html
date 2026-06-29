@@ -1,0 +1,137 @@
+<nav class="navbar">
+        <a href="/" class="back-link">← Back to Home</a>
+    </nav>
+<h1>Edit Book</h1>
+
+<form method="POST">
+    {% csrf_token %}
+    {{ form.as_p }}
+    <button type="submit" class="btn-update">
+        Update
+    </button>
+</form>
+<style>
+    /* =========================================
+   GLOBAL & NAVBAR STYLING
+   ========================================= */
+
+body {
+    background-color: #f4f7f6; /* Soft gray background */
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    margin: 0;
+    padding: 0;
+}
+
+.navbar {
+    display: flex;
+    align-items: center;
+    background-color: #2c3e50; /* Dark slate blue */
+    padding: 15px 40px;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+}
+
+.navbar .back-link {
+    color: #ecf0f1;
+    text-decoration: none;
+    font-size: 1.1rem;
+    font-weight: 500;
+    display: inline-flex;
+    align-items: center;
+    transition: color 0.3s ease, transform 0.2s ease;
+}
+
+.navbar .back-link:hover {
+    color: #3498db; /* Bright blue highlight */
+    transform: translateX(-5px); /* Slide left on hover */
+}
+
+/* =========================================
+   HEADER STYLING
+   ========================================= */
+
+h1 {
+    font-size: 2.5rem;
+    color: #2c3e50;
+    text-align: center;
+    margin: 30px 0 10px 0;
+}
+
+/* =========================================
+   FORM CONTAINER & INPUT STYLING
+   ========================================= */
+
+form {
+    background-color: #ffffff;
+    width: 90%;
+    max-width: 500px;
+    margin: 20px auto 50px auto; 
+    padding: 40px;
+    border-radius: 10px;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.05); 
+}
+
+form p {
+    margin-bottom: 20px;
+    display: flex;
+    flex-direction: column; 
+}
+
+form label {
+    font-weight: 600;
+    margin-bottom: 8px;
+    color: #2c3e50; 
+    font-size: 0.95rem;
+}
+
+form input[type="text"],
+form input[type="number"],
+form select,
+form textarea {
+    width: 100%;
+    padding: 12px 15px;
+    border: 1px solid #dcdde1; 
+    border-radius: 6px;
+    font-size: 1rem;
+    color: #333333;
+    font-family: inherit; 
+    transition: border-color 0.3s ease, box-shadow 0.3s ease;
+}
+
+/* Focus State matches the Update button's green */
+form input:focus,
+form select:focus,
+form textarea:focus {
+    border-color: #2ecc71; 
+    outline: none; 
+    box-shadow: 0 0 0 3px rgba(46, 204, 113, 0.2); 
+}
+
+form .helptext {
+    font-size: 0.8rem;
+    color: #7f8c8d;
+    margin-top: 5px;
+}
+
+/* =========================================
+   UPDATE BUTTON STYLING
+   ========================================= */
+
+form button.btn-update {
+    width: 100%;
+    color: #ffffff;
+    border: none;
+    padding: 14px 20px;
+    font-size: 1.1rem;
+    font-weight: bold;
+    border-radius: 6px;
+    cursor: pointer;
+    transition: background-color 0.3s ease, transform 0.2s ease;
+    margin-top: 10px;
+    background-color: #2ecc71; /* Emerald green */
+}
+
+form button.btn-update:hover {
+    background-color: #27ae60; /* Darker green */
+    transform: translateY(-2px); /* Slight lift effect */
+}
+</style>

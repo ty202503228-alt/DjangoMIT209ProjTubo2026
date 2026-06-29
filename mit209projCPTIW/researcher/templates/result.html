@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+
+<html>
+
+<head>
+
+<title>Prediction</title>
+
+<style>
+
+body{
+
+    font-family:Arial;
+
+    text-align:center;
+
+    margin-top:80px;
+
+}
+
+.pass{
+
+    color:green;
+
+    font-size:40px;
+
+}
+
+.fail{
+
+    color:red;
+
+    font-size:40px;
+
+}
+
+</style>
+
+</head>
+
+<body>
+
+<h1>Prediction Result</h1>
+
+{% if prediction == "PASS" %}
+
+<h2 class="pass">
+
+PASS
+
+</h2>
+
+{% else %}
+
+<h2 class="fail">
+
+FAIL
+
+</h2>
+
+{% endif %}
+
+<a href="{% url 'predict' %}">Predict Another Student</a>
+
+</body>
+
+</html>

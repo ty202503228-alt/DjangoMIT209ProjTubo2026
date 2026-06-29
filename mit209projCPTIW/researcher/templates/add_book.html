@@ -1,0 +1,117 @@
+<nav class="navbar">
+        <a href="/" class="back-link">← Back to Home</a>
+    </nav>
+<h1>Add Book</h1>
+
+
+<form method="POST">
+    {% csrf_token %}
+    {{ form.as_p }}
+    <button type="submit">
+        Save
+    </button>
+</form>
+<style>
+/* Navbar and Back Link */
+.navbar {
+    display: flex;
+    align-items: center;
+    background-color: #2c3e50;
+    padding: 15px 40px;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+}
+
+.navbar .back-link {
+    color: #ecf0f1;
+    text-decoration: none;
+    font-size: 1.1rem;
+    font-weight: 500;
+    transition: color 0.3s ease, transform 0.2s ease;
+}
+
+.navbar .back-link:hover {
+    color: #3498db; 
+    transform: translateX(-5px); 
+}
+
+/* Header */
+h1 {
+    font-size: 3rem;
+    color: #2c3e50;
+    text-align: center;
+    text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.1);
+    padding: 20px;
+    background-color: #ffffff;
+    border-radius: 10px;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.05);
+    width: 90%;
+    max-width: 500px;
+    margin: 40px auto 10px auto;
+}
+
+/* Form Container and Inputs */
+form {
+    background-color: #ffffff;
+    width: 90%;
+    max-width: 500px;
+    margin: 20px auto; 
+    padding: 40px;
+    border-radius: 10px;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.05); 
+}
+
+form p {
+    margin-bottom: 20px;
+    display: flex;
+    flex-direction: column; 
+}
+
+form label {
+    font-weight: 600;
+    margin-bottom: 8px;
+    color: #2c3e50; 
+    font-size: 0.95rem;
+}
+
+form input[type="text"],
+form input[type="number"],
+form select,
+form textarea {
+    width: 100%;
+    padding: 12px 15px;
+    border: 1px solid #dcdde1; 
+    border-radius: 6px;
+    font-size: 1rem;
+    color: #333333;
+    font-family: inherit; 
+    transition: border-color 0.3s ease, box-shadow 0.3s ease;
+}
+
+form input:focus,
+form select:focus,
+form textarea:focus {
+    border-color: #3498db; 
+    outline: none; 
+    box-shadow: 0 0 0 3px rgba(52, 152, 219, 0.2); 
+}
+
+/* Save Button */
+form button[type="submit"] {
+    width: 100%;
+    background-color: #3498db; 
+    color: #ffffff;
+    border: none;
+    padding: 14px 20px;
+    font-size: 1.1rem;
+    font-weight: bold;
+    border-radius: 6px;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+    margin-top: 10px;
+}
+
+form button[type="submit"]:hover {
+    background-color: #2980b9; 
+}
+
+</style>

@@ -1,0 +1,152 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>AI Student Impact Predictor</title>
+    <style>
+        /* --- General Page Styling --- */
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background-color: #f4f7f6; /* Soft light gray background */
+            color: #333;
+            margin: 0;
+            padding: 40px 20px;
+            display: flex;
+            justify-content: center; /* Centers the form horizontally */
+        }
+
+        /* --- The Main Card Container --- */
+        .container {
+            background-color: #ffffff;
+            padding: 40px;
+            border-radius: 12px;
+            box-shadow: 0 8px 16px rgba(0,0,0,0.1); /* Soft drop shadow */
+            max-width: 650px;
+            width: 100%;
+        }
+
+        /* --- Headers and Links --- */
+        h2 {
+            text-align: center;
+            color: #2c3e50;
+            margin-top: 0;
+            margin-bottom: 15px;
+        }
+        
+        .nav-links {
+            text-align: center;
+            margin-bottom: 20px;
+        }
+        
+        .nav-links a {
+            color: #3498db;
+            text-decoration: none;
+            font-weight: bold;
+            margin: 0 10px;
+            transition: color 0.3s;
+        }
+        
+        .nav-links a:hover {
+            color: #2980b9;
+            text-decoration: underline;
+        }
+
+        hr {
+            border: 0;
+            height: 1px;
+            background: #e0e0e0;
+            margin-bottom: 25px;
+        }
+
+        /* --- Django Form Table Styling --- */
+        table {
+            width: 100%;
+            border-collapse: collapse;
+        }
+
+        th {
+            text-align: right;
+            padding: 12px 15px 12px 0;
+            font-weight: 600;
+            width: 45%;
+            color: #555;
+            vertical-align: middle;
+        }
+
+        td {
+            padding: 8px 0;
+        }
+
+        /* --- Input Fields and Dropdowns --- */
+        input[type="text"], 
+        input[type="number"], 
+        select {
+            width: 100%;
+            padding: 10px;
+            border: 1px solid #ccc;
+            border-radius: 6px;
+            box-sizing: border-box;
+            font-size: 14px;
+            transition: border-color 0.3s, box-shadow 0.3s;
+        }
+
+        /* Glow effect when clicking an input */
+        input[type="text"]:focus, 
+        input[type="number"]:focus, 
+        select:focus {
+            border-color: #3498db;
+            outline: none;
+            box-shadow: 0 0 8px rgba(52, 152, 219, 0.3);
+        }
+
+        /* --- Checkbox Styling --- */
+        input[type="checkbox"] {
+            transform: scale(1.2);
+            margin-left: 5px;
+            cursor: pointer;
+        }
+
+        /* --- Submit Button --- */
+        button {
+            width: 100%;
+            background-color: #3498db; /* Tech Blue */
+            color: white;
+            border: none;
+            padding: 14px;
+            font-size: 16px;
+            font-weight: bold;
+            border-radius: 6px;
+            cursor: pointer;
+            margin-top: 30px;
+            transition: background-color 0.3s, transform 0.1s;
+        }
+
+        button:hover {
+            background-color: #2980b9; /* Darker blue on hover */
+        }
+        
+        button:active {
+            transform: scale(0.98); /* Slight click effect */
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h2>Predict AI Impact on Student Burnout & GPA</h2>
+        
+        <div class="nav-links">
+            <a href="/">Back to Home</a> | <a href="/predictions/">View Prediction History</a>
+        </div>
+        <hr>
+
+        <form method="POST">
+            {% csrf_token %}
+            <table>
+                {{ form.as_table }}
+            </table>
+            
+            <button type="submit">Run AI Prediction</button>
+        </form>
+    </div>
+</body>
+</html>

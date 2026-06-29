@@ -1,0 +1,177 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Home</title>
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <nav class="navbar">
+        <a href="/" class="back-link">← Back to Home</a>
+    </nav>
+
+    <main class="content">
+        <h1>Welcome to Researchers Page</h1>
+    </main>
+    <table>
+        <thead>
+            <tr>
+                <th>FirstName</th>
+                <th>LastName</th>
+                <th>Degree/Course/Program</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for researcher in researchers %}
+            <tr>
+                <td>{{ researcher.first_name }}</td>
+                <td>{{ researcher.last_name}}</td>
+                <td>{{ researcher.program}}</td>
+            </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+
+
+    <style>/* Reset default margins and padding for consistency */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+/* Body styling */
+body {
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    background-color: #f4f4f9;
+    color: #333333;
+    display: flex;
+    flex-direction: column; /* Stacks the nav and content vertically */
+    height: 100vh; /* Takes up the full height of the browser window */
+}
+
+/* =========================================
+   NAVIGATION BAR STYLING
+   ========================================= */
+.navbar {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    background-color: #2c3e50; /* Dark slate blue */
+    padding: 15px 40px;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+}
+
+.navbar .logo {
+    color: #ffffff;
+    font-size: 1.5rem;
+    font-weight: bold;
+    letter-spacing: 1px;
+}
+
+.nav-links {
+    list-style: none; /* Removes bullet points */
+    display: flex;
+    gap: 30px; /* Adds space between the links */
+}
+
+.nav-links li a {
+    color: #ecf0f1;
+    text-decoration: none; /* Removes the default underline */
+    font-size: 1.1rem;
+    font-weight: 500;
+    transition: color 0.3s ease; /* Smooth hover effect */
+}
+
+.nav-links li a:hover {
+    color: #3498db; /* Bright blue color on hover */
+}
+
+/* =========================================
+   MAIN CONTENT STYLING
+   ========================================= */
+.content {
+    flex: 1; /* Pushes the container to fill all space below the nav bar */
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+/* Heading styling */
+h1 {
+    font-size: 3rem;
+    color: #2c3e50;
+    text-align: center;
+    text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.1);
+    padding: 20px;
+    background-color: #ffffff;
+    border-radius: 10px;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.05);
+}
+/* =========================================
+   TABLE STYLING
+   ========================================= */
+table {
+    width: 90%;
+    max-width: 800px;
+    margin: 40px auto; /* Centers the table horizontally with space above/below */
+    border-collapse: collapse; /* Merges borders cleanly */
+    background-color: #ffffff;
+    border-radius: 10px; /* Matches the h1 border radius */
+    overflow: hidden; /* Keeps the rounded corners intact by clipping inner content */
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.05); /* Matches the h1 shadow */
+}
+
+/* Table Header */
+thead {
+    background-color: #2c3e50; /* Matches the navbar */
+    color: #ffffff;
+    text-align: left;
+}
+
+th {
+    padding: 16px 20px;
+    font-weight: 600;
+    letter-spacing: 0.5px;
+    text-transform: uppercase;
+    font-size: 0.9rem;
+}
+
+/* Table Body */
+td {
+    padding: 14px 20px;
+    color: #333333;
+}
+
+/* Row Borders */
+tbody tr {
+    border-bottom: 1px solid #e0e0e0;
+    transition: background-color 0.2s ease; /* Smooth hover transition */
+}
+
+/* Zebra Striping */
+tbody tr:nth-of-type(even) {
+    background-color: #fafafa; /* Very light gray for alternate rows */
+}
+
+/* Hover Effect */
+tbody tr:hover {
+    background-color: #e8f4fc; /* Very light blue matching your hover accent */
+}
+
+/* Remove bottom border from the very last row */
+tbody tr:last-of-type {
+    border-bottom: 2px solid #2c3e50; /* Adds a nice grounded border at the bottom */
+}
+.content {
+    flex: 1;
+    display: flex;
+    flex-direction: column; /* Add this so the table stacks under the heading */
+    justify-content: flex-start; /* Change to flex-start so it doesn't push too far down */
+    align-items: center;
+    padding-top: 40px; /* Add some breathing room at the top */
+}
+</style>
+</body>
+</html>

@@ -1,0 +1,166 @@
+<nav class="navbar">
+        <a href="/" class="back-link">← Back to Home</a>
+    </nav>
+<h1>Book List</h1>
+
+<div class="student-list-container">
+    <table>
+        <thead>
+            <tr>
+                <th>Title</th>
+                <th>Author</th>
+                <th>Year Published</th>
+                <th>Actions</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for book in books %}
+            <tr>
+                <td><strong>{{ book.title }}</strong></td>
+                <td>{{ book.author }}</td>
+                <td>{{ book.year_published }}</td>
+                <td>
+                    <a href="{% url 'edit_book' book.id %}">Edit</a> 
+                    <a href="{% url 'delete_book' book.id %}">Delete</a>
+                </td>
+            </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+</div>
+<style>
+    /* =========================================
+   GLOBAL & NAVBAR STYLING
+   ========================================= */
+
+body {
+    background-color: #f4f7f6; /* Soft gray background */
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    margin: 0;
+    padding: 0;
+}
+
+.navbar {
+    display: flex;
+    align-items: center;
+    background-color: #2c3e50; /* Dark slate blue */
+    padding: 15px 40px;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+}
+
+.navbar .back-link {
+    color: #ecf0f1;
+    text-decoration: none;
+    font-size: 1.1rem;
+    font-weight: 500;
+    display: inline-flex;
+    align-items: center;
+    transition: color 0.3s ease, transform 0.2s ease;
+}
+
+.navbar .back-link:hover {
+    color: #3498db; 
+    transform: translateX(-5px); /* Slide left on hover */
+}
+
+h1 {
+    font-size: 2.5rem;
+    color: #2c3e50;
+    text-align: center;
+    margin: 30px 0 10px 0;
+}
+
+/* =========================================
+   TABLE CONTAINER
+   ========================================= */
+
+.student-list-container {
+    background-color: #ffffff;
+    width: 90%;
+    max-width: 900px;
+    margin: 20px auto 50px auto;
+    padding: 20px 30px;
+    border-radius: 10px;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.05);
+    overflow-x: auto; /* Keeps the table scrollable on small screens */
+}
+
+/* =========================================
+   TABLE STYLING
+   ========================================= */
+
+table {
+    width: 100%;
+    border-collapse: collapse;
+    margin-top: 10px;
+}
+
+th, td {
+    padding: 15px 20px;
+    text-align: left;
+    border-bottom: 1px solid #ecf0f1; /* Light gray line between rows */
+}
+
+th {
+    background-color: #2c3e50; /* Matches the navbar */
+    color: #ffffff;
+    font-weight: 600;
+    text-transform: uppercase;
+    font-size: 0.9rem;
+    letter-spacing: 0.5px;
+}
+
+/* Zebra striping for table rows */
+tbody tr:nth-child(even) {
+    background-color: #fcfcfc;
+}
+
+/* Row hover effect */
+tbody tr:hover {
+    background-color: #f1f2f6; 
+}
+
+td strong {
+    color: #2c3e50;
+    font-size: 1.05rem;
+}
+
+/* =========================================
+   ACTION BUTTONS (EDIT & DELETE)
+   ========================================= */
+
+.student-list-container td a {
+    text-decoration: none;
+    font-weight: 600;
+    font-size: 0.85rem;
+    padding: 8px 14px;
+    border-radius: 6px;
+    transition: all 0.3s ease;
+    display: inline-block;
+    margin-right: 5px;
+}
+
+/* Edit Button - Blue */
+.student-list-container td a[href*="edit"] {
+    color: #3498db;
+    background-color: rgba(52, 152, 219, 0.1); /* Very light blue background */
+    border: 1px solid transparent;
+}
+
+.student-list-container td a[href*="edit"]:hover {
+    background-color: #3498db;
+    color: #ffffff;
+}
+
+/* Delete Button - Red */
+.student-list-container td a[href*="delete"] {
+    color: #e74c3c;
+    background-color: rgba(231, 76, 60, 0.1); /* Very light red background */
+    border: 1px solid transparent;
+}
+
+.student-list-container td a[href*="delete"]:hover {
+    background-color: #e74c3c;
+    color: #ffffff;
+}
+</style>

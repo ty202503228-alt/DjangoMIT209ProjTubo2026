@@ -1,0 +1,161 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Prediction History</title>
+    <style>
+        /* --- General Page Styling --- */
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background-color: #f4f7f6; /* Soft light gray background */
+            color: #333;
+            margin: 0;
+            padding: 40px 20px;
+            display: flex;
+            justify-content: center;
+        }
+
+        /* --- The Main Card Container --- */
+        .container {
+            background-color: #ffffff;
+            padding: 40px;
+            border-radius: 12px;
+            box-shadow: 0 8px 16px rgba(0,0,0,0.1);
+            max-width: 950px; /* Wider than the form so the table fits nicely */
+            width: 100%;
+            overflow-x: auto; /* Allows scrolling on very small screens */
+        }
+
+        /* --- Headers and Links --- */
+        h2 {
+            text-align: center;
+            color: #2c3e50;
+            margin-top: 0;
+            margin-bottom: 15px;
+        }
+
+        .nav-links {
+            text-align: center;
+            margin-bottom: 30px;
+        }
+
+        .nav-links a {
+            color: #3498db;
+            text-decoration: none;
+            font-weight: bold;
+            margin: 0 10px;
+            transition: color 0.3s;
+        }
+
+        .nav-links a:hover {
+            color: #2980b9;
+            text-decoration: underline;
+        }
+
+        /* --- Modern Table Styling --- */
+        table { 
+            width: 100%; 
+            border-collapse: collapse; 
+            margin-top: 10px; 
+        }
+
+        th, td { 
+            padding: 14px 15px; 
+            text-align: left; 
+            border-bottom: 1px solid #eeeeee;
+        }
+
+        /* Table Header */
+        th { 
+            background-color: #f8f9fa; 
+            color: #555;
+            font-weight: 600;
+            text-transform: uppercase;
+            font-size: 13px;
+            letter-spacing: 0.5px;
+        }
+
+        /* Hover effect for table rows */
+        tr:hover {
+            background-color: #fcfcfc;
+        }
+
+        /* --- Status Badges (Pills) --- */
+        .status-cell {
+            text-align: center;
+        }
+
+        .SAFE { 
+            background-color: #e8f5e9; /* Light green background */
+            color: #2e7d32; /* Dark green text */
+            font-weight: bold; 
+            padding: 6px 14px;
+            border-radius: 20px; /* Makes it a pill shape */
+            font-size: 12px;
+            display: inline-block;
+        }
+
+        .HIGH-RISK { 
+            background-color: #ffebee; /* Light red background */
+            color: #c62828; /* Dark red text */
+            font-weight: bold; 
+            padding: 6px 14px;
+            border-radius: 20px;
+            font-size: 12px;
+            display: inline-block;
+        }
+        
+        .empty-msg {
+            text-align: center;
+            color: #999;
+            font-style: italic;
+            padding: 30px !important;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h2>AI Prediction History Log</h2>
+        
+        <div class="nav-links">
+            <a href="/">Back to Home</a> | <a href="/predict/">Run a New Prediction</a>
+        </div>
+        
+        <table>
+            <thead>
+                <tr>
+                    <th>Date</th>
+                    <th>Major</th>
+                    <th>Year</th>
+                    <th>Weekly GenAI Hours</th>
+                    <th>Pre-Semester GPA</th>
+                    <th>AI Dependency (1-10)</th>
+                    <th style="text-align: center;">Prediction Result</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for p in predictions %}
+                <tr>
+                    <td>{{ p.created_at|date:"M d, Y" }}</td>
+                    <td>{{ p.Major_Category }}</td>
+                    <td>{{ p.Year_of_Study }}</td>
+                    <td>{{ p.Weekly_GenAI_Hours }} hrs</td>
+                    <td>{{ p.Pre_Semester_GPA }}</td>
+                    <td>{{ p.Perceived_AI_Dependency }}</td>
+                    
+                    <td class="status-cell">
+                        <span class="{% if p.prediction == 'SAFE' %}SAFE{% else %}HIGH-RISK{% endif %}">
+                            {{ p.prediction }}
+                        </span>
+                    </td>
+                </tr>
+                {% empty %}
+                <tr>
+                    <td colspan="7" class="empty-msg">No predictions have been saved yet. Fill out the form to see results here!</td>
+                </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+    </div>
+</body>
+</html>
