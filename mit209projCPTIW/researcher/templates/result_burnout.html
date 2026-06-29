@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Prediction Result</title>
+    <style>
+        body { 
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; 
+            background-color: #f4f7f6; 
+            color: #333; 
+            margin: 0; 
+            padding: 40px 20px;
+            display: flex;
+            justify-content: center;
+        }
+        .container { 
+            background: white; 
+            padding: 40px; 
+            border-radius: 10px; 
+            box-shadow: 0 4px 15px rgba(0,0,0,0.05); 
+            width: 100%; 
+            max-width: 550px; 
+            text-align: center;
+        }
+
+        h1 { color: #2c3e50; margin-bottom: 20px; }
+
+        /* Status Banners */
+        .result-banner { padding: 20px; border-radius: 8px; margin-bottom: 30px; border: 2px solid; }
+        .high-risk { background-color: #fff3f3; color: #dc3545; border-color: #dc3545; }
+        .safe { background-color: #f0fdf4; color: #28a745; border-color: #28a745; }
+
+        /* Data List Styling */
+        .data-box { background: #f8f9fa; padding: 25px; border-radius: 8px; text-align: left; border: 1px solid #e9ecef;}
+        .data-box h3 { margin-top: 0; color: #495057; border-bottom: 2px solid #ddd; padding-bottom: 10px;}
+        .data-box ul { list-style-type: none; padding: 0; margin: 0; }
+        .data-box li { padding: 8px 0; border-bottom: 1px solid #eee; font-size: 15px;}
+        .data-box li:last-child { border-bottom: none; }
+        
+        /* Links */
+        .nav-links { margin-top: 30px; display: flex; justify-content: space-between; font-weight: bold;}
+        .nav-links a { color: #007BFF; text-decoration: none; }
+        .nav-links a:hover { text-decoration: underline; }
+    </style>
+</head>
+<body>
+
+    <div class="container">
+        <h1>Prediction Result</h1>
+        <nav class="navbar">
+        <a href="/" class="back-link">← Back to Home</a>
+    </nav>
+
+        <h2 class="result-banner {% if result == 'High Risk of Burnout' %}high-risk{% else %}safe{% endif %}">
+            {{ result }}
+        </h2>
+
+        <div class="data-box">
+            <h3>Data Submitted:</h3>
+            <ul>
+                {% for key, value in data.items %}
+                    <li><strong>{{ key|title }}:</strong> {{ value }}</li>
+                {% endfor %}
+            </ul>
+        </div>
+
+        <div class="nav-links">
+            <a href="{% url 'predict_burnout' %}">&larr; Make Another Prediction</a>
+            <a href="{% url 'burnout_history' %}">View History &rarr;</a>
+        </div>
+    </div>
+
+</body>
+</html>

@@ -69,3 +69,16 @@ class StudentPrediction(models.Model):
 
     def __str__(self):
         return f"Prediction: {self.prediction} on {self.created_at.strftime('%Y-%m-%d')}"
+    
+
+
+class PredictionHistory(models.Model):
+    student_name = models.CharField(max_length=100, default="Anonymous")
+    weekly_genai_hours = models.FloatField()
+    traditional_study_hours = models.FloatField()
+    anxiety_level = models.IntegerField()
+    prediction_result = models.CharField(max_length=50)
+    created_at = models.DateTimeField(auto_now_add=True)
+
+    def __str__(self):
+        return f"{self.student_name} - {self.prediction_result}"

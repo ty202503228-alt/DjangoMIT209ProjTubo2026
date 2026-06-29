@@ -1,0 +1,89 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Predict Student Burnout</title>
+    <style>
+        /* Global Styles */
+        body { 
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; 
+            background-color: #f4f7f6; 
+            color: #333; 
+            margin: 0; 
+            padding: 40px 20px;
+            display: flex;
+            justify-content: center;
+        }
+        
+        /* Main Container Card */
+        .container { 
+            background: white; 
+            padding: 40px; 
+            border-radius: 10px; 
+            box-shadow: 0 4px 15px rgba(0,0,0,0.05); 
+            width: 100%; 
+            max-width: 600px; 
+        }
+
+        h1 { text-align: center; color: #2c3e50; margin-bottom: 30px; font-size: 28px;}
+        
+        /* Form Styling for Django's {{ form.as_p }} */
+        form p { display: flex; flex-direction: column; margin-bottom: 15px; }
+        form label { font-weight: bold; margin-bottom: 8px; color: #555; }
+        form input[type="text"], form input[type="number"], 
+        form input[type="url"], form input[type="email"], 
+        form select {
+            padding: 12px;
+            border: 1px solid #ccc;
+            border-radius: 6px;
+            font-size: 15px;
+            transition: border-color 0.3s;
+        }
+        form input:focus, form select:focus { border-color: #007BFF; outline: none; }
+        form input[type="checkbox"] { margin-top: 10px; transform: scale(1.2); }
+        
+        /* Buttons and Links */
+        .btn { 
+            width: 100%; 
+            padding: 14px; 
+            background-color: #007BFF; 
+            color: white; 
+            border: none; 
+            border-radius: 6px; 
+            font-size: 16px; 
+            font-weight: bold; 
+            cursor: pointer; 
+            transition: background-color 0.3s; 
+            margin-top: 10px;
+        }
+        .btn:hover { background-color: #0056b3; }
+        
+        .nav-link { display: block; text-align: center; margin-top: 25px; color: #007BFF; text-decoration: none; font-weight: bold; }
+        .nav-link:hover { text-decoration: underline; }
+        
+        .error { color: #dc3545; background: #f8d7da; padding: 10px; border-radius: 5px; font-weight: bold; text-align: center; margin-bottom: 20px;}
+    </style>
+</head>
+<body>
+
+    <div class="container">
+        <h1>AI Student Burnout Predictor</h1>
+        <nav class="navbar">
+        <a href="/" class="back-link">← Back to Home</a>
+    </nav>
+        {% if error %}
+            <div class="error">An error occurred: {{ error }}</div>
+        {% endif %}
+
+        <form method="POST">
+            {% csrf_token %}
+            {{ form.as_p }}
+            
+            <button type="submit" class="btn">Predict Burnout Risk</button>
+        </form>
+
+        <a class="nav-link" href="{% url 'burnout_history' %}">View Past Predictions &rarr;</a>
+    </div>
+
+</body>
+</html>

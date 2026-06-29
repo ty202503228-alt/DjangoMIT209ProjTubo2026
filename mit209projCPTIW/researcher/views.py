@@ -5,7 +5,10 @@ from .forms import StudentForm, BookForm, PredictionForm
 import pandas as pd
 import joblib
 import os
-
+from django.conf import settings
+from .models import PredictionHistory
+from .models import StudentPrediction, PredictionHistory 
+from .forms import PredictionForm, BurnoutPredictionForm
 # --- Load ML Model and Features ---
 BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 model = joblib.load(os.path.join(BASE_DIR, "ml", "student_model.pkl"))
@@ -146,3 +149,75 @@ def prediction_list(request):
         'prediction_list.html', 
         {'predictions': predictions}
     )
+
+
+# I changed 'your_app_name' to 'ml2' based on your previous terminal logs!
+MODEL_PATH = os.path.join(settings.BASE_DIR, 'ml2', 'student_burnout_model.pkl')
+SCALER_PATH = os.path.join(settings.BASE_DIR, 'ml2', 'student_scaler.pkl')
+FEATURES_PATH = os.path.join(settings.BASE_DIR, 'ml2', 'model_features.pkl')
+
+def predict_burnout(request):
+    if request.method == 'POST':
+        # Bind the POST data to our new form
+        form = BurnoutPredictionForm(request.POST)
+        
+        if form.is_valid():
+            try:
+                # 1. Use cleaned_data to safely get the user's inputs
+                raw_data = form.cleaned_data
+
+                # 2. Convert to Pandas DataFrame
+                df_input = pd.DataFrame([raw_data])
+
+                # 3. Apply Feature Engineering
+                df_input['Total_Study_Hours'] = df_input['Weekly_GenAI_Hours'] + df_input['Traditional_Study_Hours']
+
+                # Drop the student_name from the DataFrame because the ML model doesn't use it to predict
+                df_for_ml = df_input.drop(columns=['student_name'])
+
+                # 4. Perform One-Hot Encoding
+                df_encoded = pd.get_dummies(df_for_ml)
+
+                # 5. Load the required columns and align them
+                model_features = joblib.load(FEATURES_PATH)
+                df_aligned = df_encoded.reindex(columns=model_features, fill_value=0)
+
+                # 6. Load Scaler and Scale the features
+                scaler = joblib.load(SCALER_PATH)
+                X_scaled = scaler.transform(df_aligned)
+
+                # 7. Load Model and Predict
+                model = joblib.load(MODEL_PATH)
+                prediction = model.predict(X_scaled)[0]
+
+                result = "High Risk of Burnout" if prediction == 1 else "Safe / Low Risk"
+
+                # 8. Save to Database
+                PredictionHistory.objects.create(
+                    student_name=raw_data.get('student_name', 'Anonymous'),
+                    weekly_genai_hours=raw_data['Weekly_GenAI_Hours'],
+                    traditional_study_hours=raw_data['Traditional_Study_Hours'],
+                    anxiety_level=raw_data['Anxiety_Level_During_Exams'],
+                    prediction_result=result
+                )
+
+                # 9. Return the result to the user (CHANGED to result_burnout.html)
+                return render(request, 'result_burnout.html', {'result': result, 'data': raw_data})
+
+            except Exception as e:
+                # If an error happens, reload the page (CHANGED to predict_burnout.html)
+                return render(request, 'predict_burnout.html', {'form': form, 'error': str(e)})
+
+    else:
+        # If it's a GET request, just load the empty form
+        form = BurnoutPredictionForm()
+
+    # Pass the form to the template (CHANGED to predict_burnout.html)
+    return render(request, 'predict_burnout.html', {'form': form})
+
+
+def prediction_history(request):
+    """View to fetch and display past predictions"""
+    history = PredictionHistory.objects.all().order_by('-created_at')
+    # (CHANGED to history_burnout.html)
+    return render(request, 'history_burnout.html', {'history': history})

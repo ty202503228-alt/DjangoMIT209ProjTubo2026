@@ -19,7 +19,11 @@ urlpatterns = [
     path('edit-book/<int:id>/', views.edit_book, name='edit_book'),
     path('delete-book/<int:id>/', views.delete_book, name='delete_book'),
 
-    # --- NEW: AI Prediction Paths ---
+    # --- Existing AI Prediction Paths ---
     path("predict/", views.predict_student, name="predict"),
     path('predictions/', views.prediction_list, name='prediction_list'),
+
+    # --- NEW: Burnout Risk Prediction Paths (Final Project) ---
+    path('predict-burnout/', views.predict_burnout, name='predict_burnout'),
+    path('burnout-history/', views.prediction_history, name='burnout_history'),
 ]
